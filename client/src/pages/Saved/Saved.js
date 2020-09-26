@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import API from '../../utils/API'
-import Link from '@material-ui/core/Link'
+import Button from '@material-ui/core/Button'
 
 const Saved = () => {
 
@@ -34,10 +34,8 @@ const Saved = () => {
               <h3>{book.title}</h3>
               <h4>Authors: {book.authors}</h4>
               <p>Description: {book.description}</p>
-              {/* <Link component={book.link}>
-                <button>Link</button>
-              </Link> */}
-              <button onClick={() => savedState.handleDeleteSaved(book._id)}>Delete</button>
+              <Button href={book.link} target="_blank">Link</Button>
+              <Button onClick={() => savedState.handleDeleteSaved(book._id)}>Delete</Button>
             </div>
           ))
         ) : null
