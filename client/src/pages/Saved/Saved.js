@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import API from '../../utils/API'
+import Link from '@material-ui/core/Link'
 
 const Saved = () => {
 
@@ -8,15 +9,15 @@ const Saved = () => {
   })
 
   savedState.handleDeleteSaved = id => {
-    API.deleteMedia(id)
+    API.deleteBook(id)
       .then(() => {
-        let saved = savedState.saved.filter(media => media._id !== id)
+        let saved = savedState.saved.filter(book => book._id !== id)
         setSavedState({ ...savedState, saved })
       })
   }
 
   useEffect(() => {
-    API.getSavedMedia()
+    API.getSavedBook()
       .then(({ data }) => {
         setSavedState({ ...savedState, saved: data })
       })
@@ -24,17 +25,19 @@ const Saved = () => {
 
   return (
     <>
-    <h1>Your saved Movies/TV</h1>
+      <h1>Your saved books</h1>
       {
         savedState.saved.length > 0 ? (
-          savedState.saved.map(media => (
-            <div key={media.imdbID}>
-              <img src={media.poster} alt={media.title} />
-              <h3>{media.title}</h3>
-              <h4>Type: {media.type}</h4>
-              <h4>Year: {media.year}</h4>
-              <h5>imdbID: {media.imdbID}</h5>
-              <button onClick={() => savedState.handleDeleteSaved(media._id)}>Delete</button>
+          savedState.saved.map(book => (
+            <div key={book.gBookID}>
+              <img src={book.image} alt={book.title} />
+              <h3>{book.title}</h3>
+              <h4>Authors: {book.authors}</h4>
+              <p>Description: {book.description}</p>
+              {/* <Link component={book.link}>
+                <button>Link</button>
+              </Link> */}
+              <button onClick={() => savedState.handleDeleteSaved(book._id)}>Delete</button>
             </div>
           ))
         ) : null

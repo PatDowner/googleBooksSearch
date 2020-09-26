@@ -5,7 +5,7 @@ const { Book } = require('../models')
 router.get('/googlebooks/:search', (req, res) => {
   axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.params.search}`)
     .then(({ data }) => data.items.map(book => ({
-      gBookID: book.id,
+      gBookID: book,
       title: book.volumeInfo.title,
       authors: book.volumeInfo.authors,
       description: book.volumeInfo.description,
