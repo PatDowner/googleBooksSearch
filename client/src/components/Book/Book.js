@@ -41,7 +41,7 @@ const Book = props => {
         <Button
           size="small"
           color="primary"
-          onClick={() => props.handleSaveBook(props.book.imdbID)}>
+          onClick={() => props.handleSaveBook(props.book.gBookID)}>
           Save
         </Button>
       </CardActions>

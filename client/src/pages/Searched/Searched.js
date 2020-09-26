@@ -26,6 +26,7 @@ const Searched = () => {
   }
 
   bookState.handleSaveBook = gBookID => {
+    console.log(bookState.book)
     const saveBook = bookState.book.filter(x => x.gBookID === gBookID)[0]
     API.saveBook(saveBook)
       .then(() => {
@@ -37,7 +38,7 @@ const Searched = () => {
   return (
     <>
       <Typography variant="h6">
-        Search Google Books
+        Search GoogleBooks:
       </Typography>
       <BookContext.Provider value={bookState}>
         <Form />
