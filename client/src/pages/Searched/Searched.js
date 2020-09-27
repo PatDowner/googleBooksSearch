@@ -1,11 +1,26 @@
 import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import BookContext from '../../utils/BookContext'
 import Typography from '@material-ui/core/Typography'
 import Form from '../../components/Form'
 import Book from '../../components/Book'
+import Grid from '@material-ui/core/Grid'
 import API from '../../utils/API'
 
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  },
+}));
+
 const Searched = () => {
+  const classes = useStyles();
 
   const [bookState, setBookState] = useState({
     search: '',
@@ -42,16 +57,20 @@ const Searched = () => {
       </Typography>
       <BookContext.Provider value={bookState}>
         <Form />
-        {
-          bookState.book.length > 0 ? (
-            bookState.book.map(book => (
-              <Book
-                key={book.gBookID}
-                book={book}
-                handleSaveBook={bookState.handleSaveBook} />
-            ))
-          ) : null
-        }
+        <div className={classes.root}>
+          <Grid container spacing={3}>
+            {
+              bookState.book.length > 0 ? (
+                bookState.book.map(book => (
+                  <Book
+                    key={book.gBookID}
+                    book={book}
+                    handleSaveBook={bookState.handleSaveBook} />
+                ))
+              ) : null
+            }
+          </Grid>
+        </div>
       </BookContext.Provider>
     </>
   )

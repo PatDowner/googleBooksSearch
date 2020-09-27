@@ -1,51 +1,58 @@
-import React from 'react'
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import Button from '@material-ui/core/Button'
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    flexGrow: 1,
   },
-  book: {
-    height: 140,
+  paper: {
+    padding: theme.spacing(2),
+    color: theme.palette.text.secondary,
   },
-})
+  spacing: 8,
+}));
+
 
 const Book = props => {
   const classes = useStyles()
 
   return (
-    <Card className={classes.root}>
-      <CardMedia
-        className={classes.book}
-        image={props.book.image}
-        title={props.book.title}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="h2">
-          {props.book.title}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Authors: {props.book.authors}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
-          Description: {props.book.description}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => props.handleSaveBook(props.book.gBookID)}>
-          Save
-        </Button>
-      </CardActions>
-    </Card>
+
+    <Grid item xs={12} sm={6}>
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <Paper className={classes.paper, classes.spacing} p={0} m={2}>
+              <img src={props.book.image} width="100%" />
+            </Paper>
+            <br />
+            <Button
+              variant="contained"
+              color="primary"
+              size="small"
+              onClick={() => props.handleSaveBook(props.book.gBookID)}>
+              Save
+            </Button>
+          </Grid>
+          <Grid item xs={9}>
+            <Typography gutterBottom variant="h5" component="h5">
+              {props.book.title}
+            </Typography>
+            <Typography variant="h6" color="textSecondary" component="h6">
+              by {props.book.authors}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {props.book.description}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Grid>
+
   )
 }
 
