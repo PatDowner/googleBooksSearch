@@ -6,11 +6,20 @@ import Form from '../../components/Form'
 import Book from '../../components/Book'
 import Grid from '@material-ui/core/Grid'
 import API from '../../utils/API'
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
   },
   paper: {
     padding: theme.spacing(2),
@@ -21,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Searched = () => {
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false)
 
   const [bookState, setBookState] = useState({
     search: '',
@@ -41,13 +52,21 @@ const Searched = () => {
   }
 
   bookState.handleSaveBook = gBookID => {
-    console.log(bookState.book)
     const saveBook = bookState.book.filter(x => x.gBookID === gBookID)[0]
     API.saveBook(saveBook)
       .then(() => {
         const book = bookState.book.filter(x => x.gBookID !== gBookID)
         setBookState({ ...bookState, book })
       })
+    setOpen(true)
+  }
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
   }
 
   return (
@@ -69,6 +88,11 @@ const Searched = () => {
                 ))
               ) : null
             }
+            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
+                Book saved!
+        </Alert>
+            </Snackbar>
           </Grid>
         </div>
       </BookContext.Provider>
