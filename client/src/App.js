@@ -7,16 +7,35 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#673ab7',
+    },
+    secondary: {
+      main: '#00b0ff',
+    },
+    error: {
+      main: '#f44336',
+    },
+    background: {
+      default: '#ede7f6',
+    },
+  },
+});
 
 const App = () => {
   return (
     <Router>
       <div>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Searched} />
-          <Route path="/saved" component={Saved} />
-        </Switch>
+        <MuiThemeProvider theme={theme}>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Searched} />
+            <Route path="/saved" component={Saved} />
+          </Switch>
+        </MuiThemeProvider>
       </div>
     </Router>
   )
