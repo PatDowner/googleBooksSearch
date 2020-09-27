@@ -5,16 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#9c27b0',
-    },
-    secondary: {
-      main: '#00b0ff',
-    },
-  },
-});
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -25,6 +16,17 @@ const useStyles = makeStyles((theme) => ({
   },
   spacing: 8,
 }));
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#4caf50',
+    },
+    secondary: {
+      main: '#673ab7',
+    },
+  },
+});
 
 
 const Book = props => {

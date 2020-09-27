@@ -1,6 +1,6 @@
 import React, { useState, savedState, useEffect } from 'react'
 import API from '../../utils/API'
-import { makeStyles } from '@material-ui/core/styles'
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -16,6 +16,18 @@ const useStyles = makeStyles((theme) => ({
   },
   spacing: 8,
 }));
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#00b0ff',
+    },
+    secondary: {
+      main: '#f44336',
+    }
+  },
+
+});
 
 const Saved = () => {
   const classes = useStyles()
@@ -40,7 +52,7 @@ const Saved = () => {
   }, [])
 
   return (
-    <>
+    <MuiThemeProvider theme={theme}>
       <h1>Your Saved Books</h1>
       <div className={classes.root}>
         <Grid container spacing={3}>
@@ -58,7 +70,7 @@ const Saved = () => {
                         <Button href={book.link} target="_blank" variant="contained" color="primary">Link</Button>
                         <br />
                         <br />
-                        <Button variant="contained" color="error" onClick={() => savedState.handleDeleteSaved(book._id)}>Delete</Button>
+                        <Button variant="contained" color="secondary" onClick={() => savedState.handleDeleteSaved(book._id)}>Delete</Button>
                       </Grid>
                       <Grid item xs={9}>
                         <Typography gutterBottom variant="h5" component="h5">
@@ -79,7 +91,7 @@ const Saved = () => {
           }
         </Grid>
       </div>
-    </>
+    </MuiThemeProvider>
   )
 }
 
