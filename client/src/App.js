@@ -7,7 +7,16 @@ import {
   Route,
   Switch
 } from 'react-router-dom'
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import { MuiThemeProvider, createMuiTheme, makeStyles } from '@material-ui/core/styles'
+import CssBaseline from "@material-ui/core/CssBaseline"
+import Box from '@material-ui/core/Box'
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  }
+}));
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -16,28 +25,30 @@ const theme = createMuiTheme({
     secondary: {
       main: '#00b0ff',
     },
-    error: {
-      main: '#f44336',
-    },
     background: {
-      default: '#ede7f6',
+      default: '#f5f5f5',
     },
   },
 });
 
 const App = () => {
+  const classes = useStyles()
   return (
-    <Router>
-      <div>
-        <MuiThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+
+      <Router>
+        <div>
           <Navbar />
-          <Switch>
-            <Route exact path="/" component={Searched} />
-            <Route path="/saved" component={Saved} />
-          </Switch>
-        </MuiThemeProvider>
-      </div>
-    </Router>
+          <Box m={1}>
+            <Switch>
+              <Route exact path="/" component={Searched} />
+              <Route path="/saved" component={Saved} />
+            </Switch>
+          </Box>
+        </div>
+      </Router>
+    </MuiThemeProvider>
   )
 }
 

@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import API from '../../utils/API'
 import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert from '@material-ui/lab/Alert'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -26,6 +27,17 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#4caf50',
+    },
+    secondary: {
+      main: '#673ab7',
+    },
+  },
+});
 
 const Searched = () => {
   const classes = useStyles();
@@ -75,25 +87,28 @@ const Searched = () => {
       </Typography>
       <BookContext.Provider value={bookState}>
         <Form />
-        <div className={classes.root}>
-          <Grid container spacing={3}>
-            {
-              bookState.book.length > 0 ? (
-                bookState.book.map(book => (
-                  <Book
-                    key={book.gBookID}
-                    book={book}
-                    handleSaveBook={bookState.handleSaveBook} />
-                ))
-              ) : null
-            }
-            <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="success">
-                Book saved!
+        <MuiThemeProvider theme={theme}>
+          <div className={classes.root}>
+
+            <Grid container spacing={3}>
+              {
+                bookState.book.length > 0 ? (
+                  bookState.book.map(book => (
+                    <Book
+                      key={book.gBookID}
+                      book={book}
+                      handleSaveBook={bookState.handleSaveBook} />
+                  ))
+                ) : null
+              }
+              <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success">
+                  Book saved!
         </Alert>
-            </Snackbar>
-          </Grid>
-        </div>
+              </Snackbar>
+            </Grid>
+          </div>
+        </MuiThemeProvider>
       </BookContext.Provider>
     </>
   )

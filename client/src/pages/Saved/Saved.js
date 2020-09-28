@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#00b0ff',
+      main: '#673ab7',
     },
     secondary: {
       main: '#f44336',
@@ -66,11 +67,12 @@ const Saved = () => {
                         <Paper className={classes.paper, classes.spacing} p={0} m={2}>
                           <img src={book.image} alt={book.title} width="100%" />
                         </Paper>
-                        <br />
-                        <Button href={book.link} target="_blank" variant="contained" color="primary">Link</Button>
-                        <br />
-                        <br />
-                        <Button variant="contained" color="secondary" onClick={() => savedState.handleDeleteSaved(book._id)}>Delete</Button>
+                        <Box mt={1} mx="auto">
+                          <Button href={book.link} target="_blank" variant="contained" p={1} color="primary" >Link</Button>
+                        </Box>
+                        <Box mt={1} mx="auto">
+                          <Button variant="contained" p={1} color="secondary" onClick={() => savedState.handleDeleteSaved(book._id)}>Delete</Button>
+                        </Box>
                       </Grid>
                       <Grid item xs={9}>
                         <Typography gutterBottom variant="h5" component="h5">
